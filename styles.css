@@ -1,0 +1,117 @@
+/* General Styles */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(135deg, #1a1a2e, #16213e);
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+  }
+  
+  .container {
+    width: 90%;
+    max-width: 1200px;
+    padding: 20px;
+    background: #0f0f20;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+    overflow: hidden;
+  }
+  
+  /* Profile Section */
+  .profile {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .profile .title h1, .profile .title h2 {
+    text-shadow: 0 0 15px #ff4e00, 0 0 25px #ff9f00;
+  }
+  
+  .profile .progress {
+    width: 80%;
+    height: 20px;
+    margin: 20px auto;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    position: relative;
+  }
+  
+  .profile .progress .progress-bar {
+    width: 70%;
+    height: 100%;
+    background: linear-gradient(90deg, #ff4e00, #ec9f05);
+    border-radius: 10px 0 0 10px;
+    animation: fill 1.5s ease-in-out;
+  }
+  
+  @keyframes fill {
+    0% { width: 0%; }
+    100% { width: 70%; }
+  }
+  
+  /* Main Content */
+  .main-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .challenge, .top-rank {
+    width: 30%;
+    text-align: center;
+    background: linear-gradient(135deg, #ff4e00, #ec9f05);
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  }
+  
+  .challenge-options {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+  }
+  
+  .option {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #1a1a2e;
+    border-radius: 15px;
+    padding: 10px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+    width: 80px;
+  }
+  
+  .option .icon {
+    font-size: 24px;
+  }
+  
+  .avatar {
+    width: 30%;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .avatar img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    box-shadow: 0 0 20px #ff4e00, 0 0 25px #ec9f05;
+  }
+  
+  .rank-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 10px 0;
+  }
+  
+  .rank-icon {
+    font-size: 24px;
+    margin-right: 10px;
+  }
+  

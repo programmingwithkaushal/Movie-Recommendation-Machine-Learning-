@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Movie Recommendations</title>
+  <style>
+    /* Base styling */
+    body {
+      font-family: 'Roboto', sans-serif;
+      background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      overflow: hidden;
+      color: #fff;
+    }
+
+    .main-container {
+      width: 100%;
+      height: 90%;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      padding-top: 20px;
+    }
+
+    h1 {
+      font-size: 36px;
+      text-align: center;
+      margin-bottom: 20px;
+      color: #fdbb2d;
+      text-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+    }
+
+    .second-main {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      width: 100%;
+      max-width: 900px;
+      margin: 0 auto;
+      gap: 30px;
+      padding-top: 20px;
+    }
+
+    .dropdown-container {
+      position: relative;
+      width: 100%;
+      max-width: 400px;
+      perspective: 1000px;
+      margin-left: 50px;
+      transition: all 0.5s ease-in-out;
+    }
+
+    .input-box {
+      width: 100%;
+      padding: 15px 20px;
+      border: 2px solid #fff;
+      border-radius: 12px;
+      font-size: 18px;
+      outline: none;
+      transition: all 0.3s ease;
+      background-color: #2a2a2a;
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    }
+
+    .input-box:focus {
+      border-color: #fdbb2d;
+      box-shadow: 0 0 15px rgba(253, 187, 45, 0.6);
+    }
+
+    /* Dropdown menu */
+    .dropdown-menu {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      width: 100%;
+      background: #2a2a2a;
+      border-radius: 8px;
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+      margin-top: 8px;
+      overflow-y: auto;
+      max-height: 250px;
+      z-index: 10;
+      display: none;
+      transform-origin: top;
+      animation: dropdownAnimation 0.3s ease-out;
+    }
+
+    .dropdown-container.active .dropdown-menu {
+      display: block;
+    }
+
+    .dropdown-item {
+      padding: 14px 20px;
+      font-size: 16px;
+      color: #fff;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border-bottom: 1px solid #fdbb2d;
+    }
+
+    .dropdown-item:hover {
+      background: #fdbb2d;
+      color: #333;
+      transform: translateX(10px) scale(1.05);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Dropdown button */
+    .dropdown-button {
+      width: 100%;
+      padding: 15px 20px;
+      border: none;
+      background-color: #fdbb2d;
+      color: #2a2a2a;
+      font-size: 18px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+      margin-top: 10px;
+    }
+
+    .dropdown-button:hover {
+      background-color: #fcb81a;
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
+      transform: scale(1.05) translateY(-2px);
+    }
+
+    /* List container */
+    .list-container {
+      width: 1000px;
+      height: 500px;
+      margin-left: 30px;
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      gap: 30px;
+    }
+
+    ul {
+      list-style-type: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    li {
+      background: linear-gradient(135deg, #284a96, #375781);
+      margin: 10px 0;
+      padding: 15px 20px;
+      font-size: 18px;
+      color: white;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+      transition: transform 0.3s ease;
+    }
+
+    li:hover {
+      transform: rotateY(20deg) rotateX(10deg) scale(1.05);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+    }
+
+    @keyframes dropdownAnimation {
+      0% {
+        opacity: 0;
+        transform: scaleY(0);
+      }
+
+      100% {
+        opacity: 1;
+        transform: scaleY(1);
+      }
+    }
+
+    .sub-list {
+      width: 100%;
+      display: flex;
+      gap: 30px;
+      justify-content: center;
+    }
+
+    .name-list {
+      display: flex;
+      gap: 30px;
+      justify-content: center;
+    }
+
+    .name-list h5 {
+      font-size: 16px;
+      color: #fff;
+      text-align: center;
+      padding: 10px;
+      width: 200px;
+      background: #333;
+      border-radius: 10px;
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.5);
+      transition: all 0.3s ease;
+    }
+
+    .name-list h5:hover {
+      background-color: #fdbb2d;
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.6);
+      color: #333;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="main-container">
+    <h1>Movie Recommendations:</h1>
+
+    <div class="second-main">
+      <!-- Dropdown container -->
+      <div class="dropdown-container">
+        <form method="POST">
+          <!-- Input box -->
+          <input type="text" id="input-box" name="selected_option" class="input-box" onclick="toggleDropdown()"
+            placeholder="Selected option will appear here" required>
+
+          <!-- Recommend button -->
+          <button type="submit" class="dropdown-button">Recommend</button>
+
+          <!-- Dropdown menu -->
+          <div class="dropdown-menu scroll">
+            {% for i in items %}
+            <div class="dropdown-item" onclick="selectOption('{{ i }}')">{{ i }}</div>
+            {% endfor %}
+          </div>
+        </form>
+      </div>
+
+      <!-- List container -->
+      <div class="list-container">
+        <h1>Recommendations </h1>
+        <div class="sub-list">
+          {% for i in path %}
+          <img src="{{i}}" alt="" height="250px">
+          {% endfor %}
+        </div>
+        <div class="name-list">
+          {% for i in recommendations %}
+          <h5>{{i}}</h5>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Toggle dropdown visibility
+    function toggleDropdown() {
+      const dropdown = document.querySelector('.dropdown-container');
+      dropdown.classList.toggle('active');
+    }
+
+    // Select an option and display it in the input box
+    function selectOption(option) {
+      const inputBox = document.getElementById('input-box');
+      inputBox.value = option;
+      const dropdown = document.querySelector('.dropdown-container');
+      dropdown.classList.remove('active');
+    }
+
+    // Close dropdown when clicking outside
+    document.addEventListener('click', function (event) {
+      const dropdown = document.querySelector('.dropdown-container');
+      if (!dropdown.contains(event.target)) {
+        dropdown.classList.remove('active');
+      }
+    });
+  </script>
+</body>
+
+</html>
